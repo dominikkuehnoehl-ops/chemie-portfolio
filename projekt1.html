@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projekt 1 – Kalkmörtel in der Bauchemie </title>
+  <style>
+    :root {
+      --bg-primary: #0b0c10;
+      --bg-secondary: #15171e;
+      --text-primary: #e8e8e8;
+      --text-secondary: #a0a0a0;
+      --accent: #c5c6c7;
+      --border: #2a2d35;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-main);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    a {
+      color: var(--text-primary);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: border-color 0.2s ease;
+    }
+    a:hover { border-color: var(--accent); }
+
+    h1, h2, h3 {
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; margin-top: 2rem; }
+    h3 { font-size: 1.2rem; margin-top: 1.5rem; }
+
+    p { margin-bottom: 1rem; color: var(--text-secondary); }
+
+    .container {
+      width: min(1120px, calc(100% - 3rem));
+      margin: 0 auto;
+      padding: 4rem 0 6rem;
+    }
+    header {
+      padding: 2rem 0 1.5rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2rem;
+    }
+
+    header a {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      border: none;
+    }
+    header a:hover { color: var(--text-primary); }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.06) 0, transparent 50%),
+        radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.05) 0, transparent 50%),
+        radial-gradient(1.5px 1.5px at 70% 30%, rgba(255,255,255,0.07) 0, transparent 50%),
+        radial-gradient(1px 1px at 80% 80%, rgba(255,255,255,0.05) 0, transparent 50%),
+        radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.04) 0, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .content-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+
+    footer {
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.6rem; }
+      h2 { font-size: 1.3rem; }
+      .container { padding: 1.5rem 1rem 3rem; }
+    }
+/* =========================================
+   MATERIALIEN – GESAMTER ABSCHNITT
+========================================= */
+
+.materials-section {
+  width: min(100% - 128px, 1240px);
+  margin: 0 auto;
+  padding: 110px 0 120px;
+}
+
+
+/* =========================================
+   ÜBERSCHRIFT
+========================================= */
+
+.section-heading {
+  max-width: 720px;
+  margin-bottom: 48px;
+}
+
+.section-heading .eyebrow {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: #9da6b3;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  line-height: 1.4;
+}
+
+.section-heading .eyebrow::before {
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  margin: 0 10px 3px 0;
+  background: #9da6b3;
+  content: "";
+}
+
+.section-heading h3 {
+  margin: 0 0 16px;
+  color: #f4f5f7;
+  font-size: clamp(2rem, 3vw, 3.2rem);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+}
+
+.section-heading p {
+  max-width: 650px;
+  margin: 0;
+  color: #aeb6c2;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+
+/* =========================================
+   TABELLEN-CONTAINER
+========================================= */
+
+.table-shell {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.018);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.table-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.15rem 1.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #dfe3e9;
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.table-topbar > div {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.table-count {
+  color: #7f8997;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.table-status {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #cbd2dc;
+  box-shadow: 0 0 12px rgba(203, 210, 220, 0.6);
+}
+
+
+/* =========================================
+   SCROLLBEREICH DER TABELLE
+========================================= */
+
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+
+/* =========================================
+   TABELLE
+========================================= */
+
+.material-table {
+  width: 100%;
+  min-width: 950px;
+  border-collapse: separate;
+  border-spacing: 0;
+  color: #dfe3e9;
+  background: transparent;
+}
+
+
+/* =========================================
+   SPALTENBREITEN
+========================================= */
+
+.material-table th:nth-child(1),
+.material-table td:nth-child(1) {
+  width: 17%;
+}
+
+.material-table th:nth-child(2),
+.material-table td:nth-child(2) {
+  width: 18%;
+}
+
+.material-table th:nth-child(3),
+.material-table td:nth-child(3) {
+  width: 22%;
+}
+
+.material-table th:nth-child(4),
+.material-table td:nth-child(4) {
+  width: 23%;
+}
+
+.material-table th:nth-child(5),
+.material-table td:nth-child(5) {
+  width: 20%;
+}
+
+
+/* =========================================
+   TABELLENKOPF
+========================================= */
+
+.material-table th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 1rem 1.1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+  color: #9da6b3;
+  background: #191d24;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  line-height: 1.4;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+
+/* =========================================
+   TABELLENZELLEN
+========================================= */
+
+.material-table td {
+  padding: 1.25rem 1.1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.075);
+  color: #aeb6c2;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  vertical-align: top;
+}
+
+.material-table td span:not(.material-number) {
+  color: #7f8997;
+  font-size: 0.82rem;
+}
+
+
+/* =========================================
+   ERSTE SPALTE / MATERIAL-NUMMERN
+========================================= */
+
+.material-table td:first-child {
+  color: #f4f5f7;
+  white-space: nowrap;
+}
+
+.material-table td:first-child strong {
+  display: inline-block;
+  margin-left: 0.5rem;
+  color: #f4f5f7;
+  font-weight: 650;
+}
+
+.material-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  color: #cbd2dc;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+
+/* =========================================
+   TABELLENZEILEN / HOVER
+========================================= */
+
+.material-table tbody tr {
+  background: rgba(255, 255, 255, 0.012);
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.material-table tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.027);
+}
+
+.material-table tbody tr:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.085),
+    rgba(255, 255, 255, 0.025)
+  );
+}
+
+.material-table tbody tr:hover .material-number {
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.material-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+/* =========================================
+   TASTATUR-BEDIENUNG
+========================================= */
+
+.material-table tbody tr:focus-within {
+  outline: 2px solid #dce2eb;
+  outline-offset: -2px;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+  .materials-section {
+    width: min(100% - 64px, 1240px);
+    padding: 90px 0 100px;
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+  .materials-section {
+    width: min(100% - 32px, 1240px);
+    padding: 72px 0 80px;
+  }
+
+  .section-heading {
+    margin-bottom: 32px;
+  }
+
+  .section-heading .eyebrow {
+    margin-bottom: 14px;
+    font-size: 0.64rem;
+  }
+
+  .section-heading .eyebrow::before {
+    width: 20px;
+    margin-right: 8px;
+  }
+
+  .section-heading h3 {
+    margin-bottom: 14px;
+    font-size: 2rem;
+  }
+
+  .section-heading p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .table-shell {
+    border-radius: 16px;
+  }
+
+  .table-topbar {
+    padding: 0.9rem 1rem;
+    font-size: 0.7rem;
+  }
+
+  .table-count {
+    display: none;
+  }
+
+  .material-table {
+    min-width: 950px;
+  }
+
+  .material-table th {
+    padding: 0.95rem 1rem;
+  }
+
+  .material-table td {
+    padding: 1.1rem 1rem;
+  }
+}
+
+/* =========================================
+   CHEMISCHE REAKTIONEN
+   ========================================= */
+
+.chemistry-section {
+  position: relative;
+  max-width: 1120px;
+  margin: 7rem auto 0;
+  padding: 0 1.5rem 5rem;
+}
+
+/* Weicher Space-Glow hinter dem Abschnitt */
+.chemistry-section::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: 18%;
+  width: 420px;
+  height: 260px;
+  border-radius: 50%;
+  background: rgba(180, 190, 205, 0.045);
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+/* Kleine dekorative Punkte */
+.chemistry-section::after {
+  content: "·   ·       ·          ·   ·";
+  position: absolute;
+  top: -55px;
+  right: 7%;
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 1.1rem;
+  letter-spacing: 0.9rem;
+  pointer-events: none;
+}
+
+/* Überschrift */
+.section-intro {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 0 auto 3.2rem;
+  text-align: center;
+}
+
+.section-intro .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 1rem;
+
+  color: #969fac;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.section-intro .eyebrow::before,
+.section-intro .eyebrow::after {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: #69717e;
+}
+
+.section-intro h2 {
+  margin: 0 0 1rem;
+  color: #f1f3f6;
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+}
+
+.section-intro p {
+  max-width: 600px;
+  margin: 0 auto;
+  color: #9ea6b3;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+/* Kartenraster */
+.reaction-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.35rem;
+}
+
+/* Einzelne Reaktionskarte */
+.reaction-card {
+  position: relative;
+  min-height: 390px;
+  padding: 1.5rem;
+
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.075),
+      rgba(255, 255, 255, 0.018) 52%,
+      rgba(0, 0, 0, 0.16)
+    ),
+    #14171d;
+
+  box-shadow:
+    0 22px 55px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+/* Leichte Lichtquelle in jeder Karte */
+.reaction-card::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  right: -90px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: rgba(220, 226, 235, 0.06);
+  filter: blur(25px);
+  pointer-events: none;
+}
+
+.reaction-card:hover {
+  transform: translateY(-7px);
+  border-color: rgba(235, 240, 247, 0.36);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.105),
+      rgba(255, 255, 255, 0.025)
+    ),
+    #171a21;
+}
+
+/* Nummer und Kategorie */
+.reaction-card-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.2rem;
+}
+
+.reaction-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+
+  color: #e8ebef;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.reaction-type {
+  color: #858e9c;
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Kartentitel */
+.reaction-card h3 {
+  position: relative;
+  z-index: 1;
+  min-height: 3.2rem;
+  margin: 0 0 1rem;
+
+  color: #f1f3f6;
+  font-size: 1.15rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+/* Beschreibung */
+.reaction-description {
+  position: relative;
+  z-index: 1;
+  min-height: 5.2rem;
+  margin: 0;
+
+  color: #a9b1bd;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+/* Formelbereich */
+.formula {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  min-height: 86px;
+  margin: 2rem 0 1.4rem;
+  padding: 1rem 0.7rem;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.11);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+
+  color: #f3f5f7;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.08rem;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.formula .arrow {
+  padding: 0 0.15rem;
+  color: #aeb7c3;
+  font-family: system-ui, sans-serif;
+  font-size: 1.3rem;
+}
+
+.formula .plus {
+  color: #818b99;
+  font-family: system-ui, sans-serif;
+  font-size: 0.95rem;
+}
+
+/* Kleine Erklärung am Kartenende */
+.reaction-note {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+
+  color: #7f8997;
+  font-size: 0.74rem;
+  letter-spacing: 0.025em;
+  line-height: 1.5;
+}
+
+/* Responsive Darstellung */
+@media (max-width: 900px) {
+  .reaction-grid {
+    grid-template-columns: 1fr;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  .reaction-card {
+    min-height: auto;
+  }
+
+  .reaction-description {
+    min-height: auto;
+  }
+
+  .reaction-card h3 {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .chemistry-section {
+    margin-top: 5rem;
+    padding: 0 1rem 3rem;
+  }
+
+  .section-intro {
+    margin-bottom: 2.2rem;
+    text-align: left;
+  }
+
+  .section-intro p {
+    margin: 0;
+  }
+
+  .section-intro .eyebrow::before {
+    display: none;
+  }
+
+  .reaction-card {
+    padding: 1.25rem;
+    border-radius: 18px;
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="Portfolio_Dominik-Kühnöhl.html">← Zurück zum Portfolio</a>
+      <h1>Projekt 1: Titel des Projekts</h1>
+    </header>
+  </div>
+   <section class="materials-section">
+  <div class="section-heading">
+    <span class="eyebrow">BAUCHEMIE · MATERIALANALYSE</span>
+
+    <h3>Materialien und ihre Funktion</h3>
+
+    <p>
+      Die Tabelle zeigt, aus welchen Stoffen Kalkmörtel besteht, welche
+      chemischen Aufgaben sie übernehmen und wo sie im Bauwesen eingesetzt
+      werden.
+    </p>
+  </div>
+
+  <div class="table-shell">
+    <div class="table-topbar">
+      <div>
+        <span class="table-status"></span>
+        <span>Materialübersicht</span>
+      </div>
+
+      <span class="table-count">06 Materialien</span>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="material-table">
+        <thead>
+          <tr>
+            <th scope="col">Material</th>
+            <th scope="col">Chemische Bezeichnung</th>
+            <th scope="col">Verwendung</th>
+            <th scope="col">Chemische Funktion</th>
+            <th scope="col">Eigenschaft</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>
+              <span class="material-number">01</span>
+              <strong>Kalkstein</strong>
+            </td>
+            <td>Calciumcarbonat<br><span>(CaCO₃)</span></td>
+            <td>Ausgangsstoff für die Kalkherstellung</td>
+            <td>Wird beim Erhitzen zerlegt</td>
+            <td>Natürliches mineralisches Rohmaterial</td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="material-number">02</span>
+              <strong>Branntkalk</strong>
+            </td>
+            <td>Calciumoxid<br><span>(CaO)</span></td>
+            <td>Herstellung von Baukalk</td>
+            <td>Reagiert mit Wasser</td>
+            <td>Stark reaktiv und ätzend</td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="material-number">03</span>
+              <strong>Löschkalk</strong>
+            </td>
+            <td>Calciumhydroxid<br><span>(Ca(OH)₂)</span></td>
+            <td>Kalkmörtel und Kalkputz</td>
+            <td>Reagiert mit CO₂ aus der Luft</td>
+            <td>Alkalisch und bindend</td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="material-number">04</span>
+              <strong>Wasser</strong>
+            </td>
+            <td>H₂O</td>
+            <td>Löschen und Anmischen</td>
+            <td>Ermöglicht Reaktionen und Stofftransport</td>
+            <td>Für die Verarbeitung notwendig</td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="material-number">05</span>
+              <strong>Sand</strong>
+            </td>
+            <td>Vorwiegend SiO₂</td>
+            <td>Zuschlagstoff im Mörtel</td>
+            <td>Verleiht Volumen und Stabilität</td>
+            <td>Körnig und druckstabil</td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="material-number">06</span>
+              <strong>Puzzolan</strong>
+            </td>
+            <td>Silicium- und aluminiumhaltig</td>
+            <td>Zusatz in Kalkmörteln</td>
+            <td>Reagiert mit Calciumhydroxid</td>
+            <td>Kann Festigkeit und Dauerhaftigkeit verbessern</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+ <section class="chemistry-section">
+  <div class="section-intro">
+    <span class="eyebrow">REAKTIONSWEGE · BAUCHEMIE</span>
+
+    <h2>Wichtige chemische Reaktionen</h2>
+
+    <p>
+      Die Herstellung und Erhärtung von Kalkmörtel beruht auf mehreren
+      chemischen Reaktionen. Jede Reaktion erfüllt dabei eine bestimmte
+      Funktion im gesamten Prozess.
+    </p>
+  </div>
+
+  <div class="reaction-grid">
+
+    <article class="reaction-card">
+      <div class="reaction-card-top">
+        <span class="reaction-number">01</span>
+        <span class="reaction-type">Herstellung</span>
+      </div>
+
+      <h3>Herstellung von Branntkalk</h3>
+
+      <p class="reaction-description">
+        Kalkstein wird stark erhitzt. Dabei entstehen Branntkalk und
+        Kohlenstoffdioxid.
+      </p>
+
+      <div class="formula">
+        <span>CaCO₃</span>
+        <span class="arrow">→</span>
+        <span>CaO</span>
+        <span class="plus">+</span>
+        <span>CO₂</span>
+      </div>
+
+      <p class="reaction-note">
+        Thermische Zersetzung von Calciumcarbonat
+      </p>
+    </article>
+
+    <article class="reaction-card">
+      <div class="reaction-card-top">
+        <span class="reaction-number">02</span>
+        <span class="reaction-type">Löschen</span>
+      </div>
+
+      <h3>Löschen von Branntkalk</h3>
+
+      <p class="reaction-description">
+        Branntkalk reagiert mit Wasser. Dabei entsteht Calciumhydroxid und
+        Wärme wird freigesetzt.
+      </p>
+
+      <div class="formula">
+        <span>CaO</span>
+        <span class="plus">+</span>
+        <span>H₂O</span>
+        <span class="arrow">→</span>
+        <span>Ca(OH)₂</span>
+        <span class="plus">+</span>
+        <span>Wärme</span>
+      </div>
+
+      <p class="reaction-note">
+        Exotherme Reaktion bei der Herstellung von Löschkalk
+      </p>
+    </article>
+
+    <article class="reaction-card">
+      <div class="reaction-card-top">
+        <span class="reaction-number">03</span>
+        <span class="reaction-type">Erhärtung</span>
+      </div>
+
+      <h3>Erhärten durch Carbonatisierung</h3>
+
+      <p class="reaction-description">
+        Calciumhydroxid nimmt Kohlenstoffdioxid aus der Luft auf. Dadurch
+        entsteht wieder Calciumcarbonat.
+      </p>
+
+      <div class="formula">
+        <span>Ca(OH)₂</span>
+        <span class="plus">+</span>
+        <span>CO₂</span>
+        <span class="arrow">→</span>
+        <span>CaCO₃</span>
+        <span class="plus">+</span>
+        <span>H₂O</span>
+      </div>
+
+      <p class="reaction-note">
+        Carbonatisierung und langfristige Erhärtung des Kalkmörtels
+      </p>
+    </article>
+
+  </div>
+</section>
+  <footer>
+      <p>© 2026 Dominik K. – Chemie Portfolio</p>
+    </footer>
+</div>
+    
+  
+</body>
+</html>
